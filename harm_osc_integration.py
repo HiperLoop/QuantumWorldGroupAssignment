@@ -82,7 +82,7 @@ elif analytic_or_numerical == 'numerical':
     en[1] = float(input("High bracket energy "))
 
     norm = input("Normalise wave function? Y/n")
-    normalise = norm != 'n'
+    normalise = norm.lower() != 'n'
 
     x_range = np.linspace(0,xmax,steps)   # all integration steps
 
@@ -90,7 +90,7 @@ elif analytic_or_numerical == 'numerical':
         """
         The right-hand side of the ODE
         """
-        return [psi[1], ( 0.25 * x**2 - energy) * psi[0]]
+        return [psi[1], (x**2 - (energy * 2)) * psi[0]]
 
     # start figure settings
     fig, ax = plt.subplots()
@@ -157,7 +157,7 @@ elif analytic_or_numerical == 'numerical':
 
     if normalise:
         delta_x: float = x_range[1] - x_range[0]
-        normalisation_constant: float = delta_x * np.sum(((psi_low[:, 0] + psi_high[:, 0]) * 0.5)**2)
+        normalisation_constant: float = np.sqrt(2 * (delta_x * np.sum(((psi_low[:, 0] + psi_high[:, 0]) * 0.5)**2)))
         psi = ((psi_low[:, 0] + psi_high[:, 0]) * 0.5) / normalisation_constant
 
         ax.clear()
