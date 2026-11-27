@@ -3,9 +3,14 @@ import numpy as np
 
 x = np.linspace(-6, 6, 400)
 y = -x**2 + 0.045 * x**4
+v1 = -50/9 + 2*(x + 10/3)**2
+v2 = -50/9 + 2*(x - 10/3)**2
 
 fig, ax = plt.subplots(figsize=(7, 4.5))
 ax.plot(x, y, color="#5b7ea6", linewidth=1.8)
+ax.plot(x, v1, color="#10e41e", linewidth=1.8)
+ax.plot(x, v2, color="#e41010", linewidth=1.8)
+ax.set_ylim(-6, 26)
 
 ax.spines["left"].set_position("zero")
 ax.spines["bottom"].set_position("zero")
